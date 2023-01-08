@@ -1,91 +1,123 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import { DatePicker } from "@mantine/dates";
+import CapacityIcon from "assets/icons/capacity.svg";
+import CostIcon from "assets/icons/cost.svg";
+import DateIcon from "assets/icons/date.svg";
+import LocationIcon from "assets/icons/location.svg";
+import TimeIcon from "assets/icons/time.svg";
+import Image from "next/image";
+import { useState } from "react";
+import InputMask from "react-input-mask";
 
 export default function Home() {
+  const [title, setTitle] = useState("Untitle Event");
+  const [date, setDate] = useState<Date | null>(null);
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
+    <div>
+      <div className="flex gap-5">
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
+            contentEditable
+            suppressContentEditableWarning
+            className="w-fit bg-[#942F70] px-3 py-1 text-5xl font-bold leading-tight"
+            onChange={(event) => {
+              setTitle(event.currentTarget.textContent ?? "");
+            }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+            {title}
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="flex items-center gap-2">
+              <Image
+                alt="Time"
+                className="h-12 w-12 scale-[0.7]"
+                src={DateIcon}
+              />
+              <DatePicker
+                className="flex h-10 w-[180px] items-center rounded-md border-0 bg-white"
+                clearable={false}
+                inputFormat="DD/MM/YYYY"
+                minDate={new Date()}
+                placeholder="Date"
+                value={date}
+                classNames={{
+                  wrapper: "h-10",
+                  input:
+                    "border-0 placeholder:text-[#333] text-[28px] leading-10 h-10 font-semibold",
+                }}
+                onChange={setDate}
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Image
+                alt="Date"
+                className="h-12 w-12 scale-[0.7]"
+                src={TimeIcon}
+              />
+              <InputMask
+                className="flex h-10 w-[180px] items-center rounded-md border-0 bg-white text-[28px] font-semibold leading-10 text-black  placeholder:text-[#333]"
+                mask="99:99"
+                maskChar="_"
+                placeholder="Time"
+                type="text"
+                value={time}
+                onChange={(event) => {
+                  setTime(event.target.value);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="mt-7 flex items-center gap-2">
+            <Image alt="Location" className="h-6 w-6" src={LocationIcon} />
+            <input
+              className="w-[454px] rounded-md border-0 font-semibold placeholder:text-[#333]"
+              placeholder="Venue"
+              type="text"
+              value={location}
+              onChange={(event) => {
+                setLocation(event.target.value);
+              }}
             />
-          </a>
+          </div>
+
+          <div className="mt-3 grid grid-cols-2 gap-8">
+            <div className="flex items-center gap-2">
+              <Image alt="Location" className="h-6 w-6" src={CapacityIcon} />
+              <input
+                className="w-[155px] rounded-md border-0 font-semibold placeholder:text-[#333]"
+                placeholder="Venue"
+                type="text"
+                value={location}
+                onChange={(event) => {
+                  setLocation(event.target.value);
+                }}
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Image alt="Location" className="h-6 w-6" src={CostIcon} />
+              <input
+                className="w-[155px] rounded-md border-0 font-semibold placeholder:text-[#333]"
+                placeholder="Venue"
+                type="text"
+                value={location}
+                onChange={(event) => {
+                  setLocation(event.target.value);
+                }}
+              />
+            </div>
+          </div>
         </div>
+
+        <div className="h-[445px] flex-grow rounded-tr-[64px] rounded-bl-[64px] border border-dashed border-[#F2F2F2] bg-[#F2F2F2] backdrop-opacity-10"></div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }

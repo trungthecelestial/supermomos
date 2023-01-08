@@ -6,5 +6,5 @@ export default function Head() {
       <meta name="description" content="Social web page powered by NextJS" />
       <link rel="icon" href="/favicon.ico" />
     </>
-  )
+  );
 }
